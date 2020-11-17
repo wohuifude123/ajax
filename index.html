@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装ajax</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="assets/styles/index.css">
+</head>
+
+<body>
+    <div class='video-root'>
+        <div class='btn-style' onclick='usePost()'>POST请求</div>
+        <div class='btn-style mt10' onclick='useGet()'>GET请求</div>
+    </div>
+    <script src="assets/scripts/ajax-0.1.0.js"></script>
+    <script>
+        var objReq = {}
+        /**
+         * POST 请求
+         * @type {string}
+         */
+        function usePost () {
+            var url = 'https://127.0.0.1:48330/easyRtcRouter/v1/post/log';
+            // console.log('提交延时参数 dataPost == ', dataPost);
+            objReq = {
+                type: "POST", // 请求方式
+                url: url, // 请求地址
+                data: {
+                    'data': {
+                        'our': 123
+                    }
+                }, // 请求参数
+                dataType: "json", // 请求类型
+                session: false, // 开始session
+                success: function (response, xml) {
+                    var dataRes = eval('(' + response + ')');
+                    console.log('dataRes == ', dataRes)
+                }
+            }
+            sendRequest(objReq)
+        }
+        /**
+         * GET 请求
+         * @type {string}
+         */
+        function useGet () {
+            var url = 'https://127.0.0.1:48330/easyRtcRouter/v1/get/log' + '?id=1';
+            objReq = {
+                type: "GET", //请求方式
+                url: url,
+                data: {},//请求参数
+                session: false,
+                success: function (response, xml) {
+                    var dataRes = eval('(' + response + ')');
+                    console.log('dataRes == ', dataRes)
+                }
+            }
+            // console.log('提交延时参数 dataPost == ', dataPost);
+            sendRequest(objReq)
+        }
+    </script>
+</body>
+</html>
